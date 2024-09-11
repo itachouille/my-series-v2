@@ -1,0 +1,43 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  email  String  @unique
+  name   String?
+  series Serie[]
+  movies Movie[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Serie {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  image    String
+  title    String
+  saison   Int
+  episodes Int
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Movie {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  image    String
+  title    String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
