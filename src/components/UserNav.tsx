@@ -7,11 +7,12 @@ import {
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import avatarPlaceholder from "@/assets/avatar-placeholder.png";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import {
-  getKindeServerSession,
+  LoginLink,
+  RegisterLink,
   LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/server";
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
@@ -20,17 +21,25 @@ export default async function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="rounded-full border px-2 py-2 lg:py-2 flex items-center gap-x-3">
+        <div className="rounded-full border px-2 py-2 flex items-center gap-x-3">
           <MenuIcon className="size-6 lg:size-5" />
           <Image
-            src={avatarPlaceholder}
-            alt="Profile"
-            className="size-8 rounded-full"
+            src={user?.picture || avatarPlaceholder}
+            alt="User avatar"
+            width={38}
+            height={38}
+            className="rounded-full"
           />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
         {user ? (
+          <>
+            <DropdownMenuItem>
+              <LogoutLink className="w-full">Logout</LogoutLink>
+            </DropdownMenuItem>
+          </>
+        ) : (
           <>
             <DropdownMenuItem>
               <RegisterLink className="w-full">Register</RegisterLink>
@@ -39,10 +48,6 @@ export default async function UserNav() {
               <LoginLink className="w-full">Login</LoginLink>
             </DropdownMenuItem>
           </>
-        ) : (
-          <DropdownMenuItem>
-            <LogoutLink className="w-full">Logout</LogoutLink>
-          </DropdownMenuItem>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
