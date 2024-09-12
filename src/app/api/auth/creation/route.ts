@@ -1,9 +1,8 @@
-"use server";
 import prisma from "@/lib/db";
-
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { NextResponse } from "next/server";
 
-export const getAuthStatus = async () => {
+export async function GET() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -20,9 +19,13 @@ export const getAuthStatus = async () => {
       data: {
         id: user.id,
         email: user.email,
+        firstName: user.given_name ?? "",
+        lastName: user.family_name ?? "",
+        profileImage:
+          user.picture ?? `https://avatars.vercel.sh/${user.given_name}`,
       },
     });
   }
 
-  return { success: true };
-};
+  return NextResponse.redirect("http://localhost:3000/dashboard");
+}
