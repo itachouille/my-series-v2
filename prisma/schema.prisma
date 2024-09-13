@@ -10,37 +10,37 @@ generator client {
 
 model User {
   id           String  @id @unique
-  email        String
+  email        String  @unique
   firstName    String
   lastName     String
   profileImage String?
   series       Serie[]
   movies       Movie[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Serie {
   id       String @id @default(uuid())
-  image    String
+  imageUrl String
   title    String
   saison   Int
-  episodes Int
+  episode  Int
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Movie {
-  id       Int    @id @default(autoincrement())
-  image    String
+  id       String @id @default(uuid())
+  imageUrl String
   title    String
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
