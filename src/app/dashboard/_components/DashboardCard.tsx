@@ -4,6 +4,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DashboardPageCardProps {
   title: string;
@@ -42,7 +43,7 @@ export default function DashboardCard({
   } */
 
   return (
-    <Card className="w-[300px] overflow-hidden">
+    <Card className="w-[250px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <div className="relative">
         <Image
           alt={title}
@@ -74,7 +75,7 @@ export default function DashboardCard({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex justify-between items-center">
+      <CardFooter className="p-2 pt-0 flex justify-between items-center">
         {/*   <span className="text-sm text-gray-500">
           {totalSeasons} Seasons, {episodesPerSeason} Episodes each
         </span> */}
@@ -82,3 +83,11 @@ export default function DashboardCard({
     </Card>
   );
 }
+
+DashboardCard.Skeleton = function DashboardCardSkeleton() {
+  return (
+    <div className="aspect-[100/127] rounded-lg overflow-hidden">
+      <Skeleton className="h-full w-full" />
+    </div>
+  );
+};

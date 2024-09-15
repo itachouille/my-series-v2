@@ -1,8 +1,8 @@
-import SearchPageCard from "@/components/SearchCard";
+import SearchPageCard from "@/app/search/_components/SearchCard";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
-const page = async () => {
+export default async function SearchPage() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -19,6 +19,4 @@ const page = async () => {
       </div>
     </main>
   );
-};
-
-export default page;
+}
