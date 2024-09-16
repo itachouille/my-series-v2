@@ -1,4 +1,4 @@
-import "server-only";
+"use server";
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -13,6 +13,33 @@ export async function getAllSeries() {
   const seriesData = await prisma.serie.findMany();
 
   return seriesData;
+}
+
+export async function addSerie(name: string, backdrop_path: string) {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  const existingUser = await prisma.user.findUnique({
+    where: { id: user.id },
+  });
+
+  if (!existingUser) return;
+
+  await prisma.serie.create({
+    data: {
+      name,
+      backdrop_path,
+      saison: 1,
+      episode: 1,
+      userId: existingUser.id,
+    },
+  });
+  redirect("/dashboard");
 }
 
 export async function getSerieById(id: string) {

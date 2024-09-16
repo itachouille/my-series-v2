@@ -30,8 +30,8 @@ export default async function BoardList() {
         return (
           <DashboardCard
             key={serie.id}
-            title={serie.title}
-            imageUrl={serie.imageUrl}
+            title={serie.name}
+            imageUrl={serie.backdrop_path}
             saison={serie.saison}
             episode={serie.episode}
           />

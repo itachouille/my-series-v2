@@ -22,25 +22,25 @@ model User {
 }
 
 model Serie {
-  id       String @id @default(uuid())
-  imageUrl String
-  title    String
-  saison   Int
-  episode  Int
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  id            String @id @default(uuid())
+  backdrop_path String
+  name          String
+  saison        Int
+  episode       Int
+  author        User   @relation(fields: [userId], references: [id])
+  userId        String
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Movie {
-  id       String @id @default(uuid())
-  imageUrl String
-  title    String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
+  id            String @id @default(uuid())
+  backdrop_path String
+  name          String
+  author        User   @relation(fields: [userId], references: [id])
+  userId        String
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

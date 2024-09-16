@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { addSerie } from "@/data-access/serie";
 
 interface SearchPageCardProps {
   name: string;
@@ -17,6 +18,10 @@ export default function SearchPageCard({
   backdrop_path,
   year,
 }: SearchPageCardProps) {
+  const handleAddSerie = async (name: string, backdrop_path: string) => {
+    addSerie(name, backdrop_path);
+  };
+
   return (
     <Card className="w-[250px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <div className="relative">
@@ -39,7 +44,10 @@ export default function SearchPageCard({
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full" onClick={() => {}}>
+        <Button
+          className="w-full"
+          onClick={() => handleAddSerie(name, backdrop_path)}
+        >
           <Plus className="mr-2 size-4" />
           Add to Collection
         </Button>
