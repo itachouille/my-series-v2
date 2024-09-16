@@ -1,39 +1,34 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { fetchSeries } from "../actions";
 import SearchPageCard from "./SearchCard";
 import { redirect } from "next/navigation";
+import { SeriesItemProps } from "@/types";
 
-interface SeriesItem {
-  id: string;
-  name: string;
-  backdrop_path: string;
-  year: number;
+interface SearchListProps {
+  data: SeriesItemProps[];
 }
 
-export default async function SearchList() {
+export default async function SearchList({ data }: SearchListProps) {
   const { isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
   }
-
-  const data = await fetchSeries("titan");
-
-  if (data === undefined) {
+  /* 
+  if (!data || data.length === 0) {
     return (
-      <div>
+    
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
           <SearchPageCard.Skeleton />
           <SearchPageCard.Skeleton />
           <SearchPageCard.Skeleton />
           <SearchPageCard.Skeleton />
         </div>
-      </div>
+    
     );
-  }
+  } */
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 mt-6 pb-10">
-      {data.results?.map((item: SeriesItem) => (
+      {data.map((item: SeriesItemProps) => (
         <SearchPageCard
           key={item.id}
           name={item.name}

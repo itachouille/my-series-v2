@@ -18,7 +18,7 @@ export default function SearchPageCard({
   year,
 }: SearchPageCardProps) {
   return (
-    <Card className="w-[250px] overflow-hidden">
+    <Card className="w-[250px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <div className="relative">
         <Image
           alt={name}

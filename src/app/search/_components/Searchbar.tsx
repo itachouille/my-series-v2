@@ -1,37 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
-export default function Searchbar() {
-  const [searchQuery, setSearchQuery] = useState("");
+const Search = ({
+  placeholder = "Search title...",
+}: {
+  placeholder?: string;
+}) => {
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implement your search logic here
-    console.log("Searching for:", searchQuery);
-  };
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      let newUrl = "";
+
+      if (query) {
+        newUrl = formUrlQuery({
+          params: searchParams.toString(),
+          key: "query",
+          value: query,
+        });
+      } else {
+        newUrl = removeKeysFromQuery({
+          params: searchParams.toString(),
+          keysToRemove: ["query"],
+        });
+      }
+
+      router.push(newUrl, { scroll: false });
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query, searchParams, router]);
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="flex w-full max-w-sm items-center space-x-2"
-    >
-      <div className="relative flex-grow">
-        <Input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10 pr-4 py-2 w-full"
-        />
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-      </div>
-      <Button type="submit" className="shrink-0">
-        Search
-      </Button>
-    </form>
+    <div className="flex items-center min-h-[54px] w-1/2 overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+      <SearchIcon />
+      <Input
+        type="text"
+        placeholder={placeholder}
+        onChange={(e) => setQuery(e.target.value)}
+        className="p-regular-16 border-0 bg-grey-50 outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+      />
+    </div>
   );
-}
+};
+
+export default Search;
