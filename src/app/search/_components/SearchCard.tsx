@@ -1,31 +1,30 @@
 "use client";
 
-import { Star, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SearchPageCardProps {
-  title: string;
-  rating: number;
+  name: string;
   year: number;
-  imageUrl: string;
+  backdrop_path: string;
 }
 
 export default function SearchPageCard({
-  title,
-  rating,
-  imageUrl,
+  name,
+  backdrop_path,
   year,
 }: SearchPageCardProps) {
   return (
     <Card className="w-[250px] overflow-hidden">
       <div className="relative">
         <Image
-          alt={title}
+          alt={name}
           className="w-full h-[150px] object-cover"
           height="150"
-          src={imageUrl}
+          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
             aspectRatio: "100/150",
             objectFit: "cover",
@@ -34,13 +33,9 @@ export default function SearchPageCard({
         />
       </div>
       <CardContent className="p-4">
-        <h3 className="text-lg font-bold truncate">{title}</h3>
+        <h3 className="text-lg font-bold truncate">{name}</h3>
         <div className="flex justify-between items-center mt-2">
           <span className="text-sm text-gray-500">{year}</span>
-          <div className="flex items-center">
-            <Star className="size-4 fill-yellow-400 text-yellow-400 mr-1" />
-            <span className="text-sm font-medium">{rating.toFixed(1)}</span>
-          </div>
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
@@ -52,3 +47,11 @@ export default function SearchPageCard({
     </Card>
   );
 }
+
+SearchPageCard.Skeleton = function DashboardCardSkeleton() {
+  return (
+    <div className="aspect-[100/127] rounded-lg overflow-hidden">
+      <Skeleton className="h-full w-full" />
+    </div>
+  );
+};

@@ -3,11 +3,9 @@ import BoardList from "./_components/BoardList";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user) {
-    redirect("/");
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
   }
 
   return (
