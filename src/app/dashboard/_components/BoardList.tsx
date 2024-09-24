@@ -1,4 +1,4 @@
-import { getAllSeries } from "@/data-access/serie";
+import { getUserSeries } from "@/data-access/serie";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardCard from "./DashboardCard";
@@ -9,7 +9,7 @@ export default async function BoardList() {
     redirect("/api/auth/login");
   }
 
-  const seriesData = await getAllSeries();
+  const seriesData = await getUserSeries();
 
   if (seriesData === undefined) {
     return (
@@ -30,10 +30,11 @@ export default async function BoardList() {
         return (
           <DashboardCard
             key={serie.id}
-            title={serie.name}
-            imageUrl={serie.backdrop_path}
+            name={serie.name}
+            backdrop_path={serie.backdrop_path}
             saison={serie.saison}
             episode={serie.episode}
+            id={serie.id}
           />
         );
       })}

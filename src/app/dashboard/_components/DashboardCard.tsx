@@ -1,84 +1,91 @@
 "use client";
-//import { useState } from "react";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MoreVertical } from "lucide-react";
+import Actions from "./Actions";
+import { updateSerie } from "@/data-access/serie";
 
 interface DashboardPageCardProps {
-  title: string;
-  imageUrl: string;
+  name: string;
+  backdrop_path: string;
   saison: number;
   episode: number;
+  id: string;
 }
 
 export default function DashboardCard({
-  title,
-  imageUrl,
-  saison,
-  episode,
+  name,
+  backdrop_path,
+  saison: iniatialSeason,
+  episode: initialEpisode,
+  id,
 }: DashboardPageCardProps) {
-  /*  const [currentSeason, setCurrentSeason] = useState(1) */
-  /*   const [currentEpisode, setCurrentEpisode] = useState(1) */
+  const handleUpdateSerie = async (
+    id: string,
+    saison: number,
+    episode: number
+  ) => {
+    await updateSerie(id, saison, episode);
+  };
 
-  /*  const handleNextEpisode = () => {
-    if (currentEpisode < episodesPerSeason) {
-      setCurrentEpisode(currentEpisode + 1)
-    } else if (currentSeason < totalSeasons) {
-      setCurrentSeason(currentSeason + 1)
-      setCurrentEpisode(1)
-    }
-    onUpdateProgress(currentSeason, currentEpisode + 1)
-  } */
-  /* 
-  const handlePreviousEpisode = () => {
-    if (currentEpisode > 1) {
-      setCurrentEpisode(currentEpisode - 1)
-    } else if (currentSeason > 1) {
-      setCurrentSeason(currentSeason - 1)
-      setCurrentEpisode(episodesPerSeason)
-    }
-    onUpdateProgress(currentSeason, currentEpisode - 1)
-  } */
+  const [season, setSeasons] = useState(iniatialSeason);
+  const [episode, setEpisodes] = useState(initialEpisode);
+
+  const incrementSeason = () => setSeasons((prev) => prev + 1);
+  const incrementEpisode = () => setEpisodes((prev) => prev + 1);
 
   return (
-    <Card className="w-[250px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
-      <div className="relative">
+    <Card className="w-[300px] overflow-hidden">
+      <CardHeader className="relative p-0">
         <Image
-          alt={title}
-          className="w-full h-[200px] object-cover"
-          height="200"
-          src={imageUrl}
+          alt={name}
+          className="w-full h-[150px] object-cover"
+          height="150"
+          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
-            aspectRatio: "150/200",
+            aspectRatio: "100/150",
             objectFit: "cover",
           }}
-          width="150"
+          width="100"
         />
-      </div>
+        <Actions id={id} name={name} side="right">
+          <button className="absolute top-1 right-1 px-3 py-2 outline-none">
+            <MoreVertical className="text-white" />
+          </button>
+        </Actions>
+        <button className="absolute top-1 right-1 px-3 py-2 outline-none">
+          <MoreVertical className="text-white" />
+        </button>
+      </CardHeader>
       <CardContent className="p-4">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-bold truncate">{title}</h3>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-sm font-medium">
-            S{saison} E{episode}
-          </span>
-          <div className="flex items-center space-x-1">
-            <Button size="icon" variant="outline" onClick={() => {}}>
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button size="icon" variant="outline" onClick={() => {}}>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+        <CardTitle className="text-xl mb-2">{name}</CardTitle>
+        <p className="text-sm text-gray-600">
+          Season: {season} | Episode: {episode}
+        </p>
       </CardContent>
-      <CardFooter className="p-2 pt-0 flex justify-between items-center">
-        {/*   <span className="text-sm text-gray-500">
-          {totalSeasons} Seasons, {episodesPerSeason} Episodes each
-        </span> */}
+      <CardFooter className="flex p-4">
+        <Button onClick={incrementSeason} variant="outline">
+          Next Season
+        </Button>
+        <Button onClick={incrementEpisode}>Next Episode</Button>
+        {season !== iniatialSeason || episode !== initialEpisode ? (
+          <Button
+            onClick={() => handleUpdateSerie(id, season, episode)}
+            variant="outline"
+          >
+            Update
+          </Button>
+        ) : null}
       </CardFooter>
     </Card>
   );
