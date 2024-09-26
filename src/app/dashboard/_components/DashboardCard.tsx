@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
 import { MoreVertical } from "lucide-react";
 import Actions from "./Actions";
 import { updateSerie } from "@/data-access/serie";
@@ -63,17 +62,14 @@ export default function DashboardCard({
             <MoreVertical className="text-white" />
           </button>
         </Actions>
-        <button className="absolute top-1 right-1 px-3 py-2 outline-none">
-          <MoreVertical className="text-white" />
-        </button>
       </CardHeader>
       <CardContent className="p-4">
-        <CardTitle className="text-xl mb-2">{name}</CardTitle>
+        <CardTitle className="text-xl mb-2 truncate">{name}</CardTitle>
         <p className="text-sm text-gray-600">
           Season: {season} | Episode: {episode}
         </p>
       </CardContent>
-      <CardFooter className="flex p-4">
+      <CardFooter className="flex justify-center gap-2">
         <Button onClick={incrementSeason} variant="outline">
           Next Season
         </Button>
@@ -90,11 +86,3 @@ export default function DashboardCard({
     </Card>
   );
 }
-
-DashboardCard.Skeleton = function DashboardCardSkeleton() {
-  return (
-    <div className="aspect-[100/127] rounded-lg overflow-hidden">
-      <Skeleton className="h-full w-full" />
-    </div>
-  );
-};

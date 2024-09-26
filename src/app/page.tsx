@@ -1,14 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Tv, ListChecks, Share2 } from "lucide-react";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 
 export default function Homepage() {
   return (
-    <div className="flex flex-col min-h-screen container">
+    <div className="flex flex-col items-center">
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
+          <div className="px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
@@ -20,13 +22,15 @@ export default function Homepage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button>Get Started</Button>
+                <Button>
+                  <LoginLink className="w-full">Get Started</LoginLink>
+                </Button>
               </div>
             </div>
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
+          <div className="px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
               Features
             </h2>
@@ -58,7 +62,7 @@ export default function Homepage() {
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+          <div className="px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
               How It Works
             </h2>
@@ -94,7 +98,7 @@ export default function Homepage() {
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
+          <div className="px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
               What Our Users Say
             </h2>
@@ -124,7 +128,7 @@ export default function Homepage() {
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+          <div className="px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -136,14 +140,10 @@ export default function Homepage() {
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <Input
-                    className="max-w-lg flex-1"
-                    placeholder="Enter your email"
-                    type="email"
-                  />
-                  <Button type="submit">Sign Up</Button>
-                </form>
+                <Button>
+                  <RegisterLink className="w-full">Register</RegisterLink>
+                </Button>
+
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   By signing up, you agree to our Terms of Service and Privacy
                   Policy.

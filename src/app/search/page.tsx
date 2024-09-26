@@ -17,10 +17,8 @@ export default async function SearchPage({ searchParams }: SearchParamProps) {
   });
 
   return (
-    <main className="w-full h-full ">
-      <div className="flex flex-col gap-2 items-center my-3 lg:flex-row ">
-        <SearchList data={data.results} />
-      </div>
-    </main>
+    <div className="flex flex-col gap-2 items-center">
+      <SearchList data={data.results} />
+    </div>
   );
 }

@@ -28,7 +28,7 @@ export default function Actions({ children, id, name, side }: ActionsProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-60"
+        className="w-10"
         onClick={(e) => e.stopPropagation()}
         side={side}
         sideOffset={5}
@@ -37,11 +37,11 @@ export default function Actions({ children, id, name, side }: ActionsProps) {
           header="Delete board?"
           description={`This will delete ${name}.`}
           disabled={false}
-          onCorfirm={() => handleDeleteSerie(id)}
+          onConfirm={() => handleDeleteSerie(id)}
         >
           <Button
             variant="ghost"
-            className="p-3 cursor-pointer text-sm w-full justify-start font-normal"
+            className="p-3 cursor-pointer text-sm w-full justify-start font-normal text-red-600"
           >
             <Trash2 className="size-4 mr-2" />
             Delete

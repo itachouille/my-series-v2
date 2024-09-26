@@ -91,4 +91,5 @@ export async function deleteSerie(id: string) {
       id,
     },
   });
+  redirect("/dashboard");
 }

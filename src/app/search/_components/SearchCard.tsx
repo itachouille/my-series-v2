@@ -4,7 +4,6 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
 import { addSerie } from "@/data-access/serie";
 
 interface SearchPageCardProps {
@@ -55,11 +54,3 @@ export default function SearchPageCard({
     </Card>
   );
 }
-
-SearchPageCard.Skeleton = function DashboardCardSkeleton() {
-  return (
-    <div className="aspect-[100/127] rounded-lg overflow-hidden">
-      <Skeleton className="h-full w-full" />
-    </div>
-  );
-};
