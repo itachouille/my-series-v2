@@ -10,7 +10,14 @@ export async function getUserSeries() {
     redirect("/api/auth/login");
   }
 
-  const seriesData = await prisma.serie.findMany();
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  const seriesData = await prisma.serie.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
 
   return seriesData;
 }

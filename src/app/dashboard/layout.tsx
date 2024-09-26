@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sidebar } from "./_components/Sidebar";
+import SwitchTab from "@/components/SwitchTab";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -7,15 +7,12 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <main className="h-full">
-      <div className="flex h-full">
-        {/*    <Sidebar /> */}
+    <main>
+      <div className="flex items-center justify-around">
         <Link href="/search">Search</Link>
-        <div className="h-full flex-1">
-          {/*   <Navbar /> */}
-          {children}
-        </div>
+        <SwitchTab />
       </div>
+      {children}
     </main>
   );
 }
