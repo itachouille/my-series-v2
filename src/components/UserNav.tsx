@@ -13,6 +13,7 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
@@ -35,6 +36,11 @@ export default async function UserNav() {
       <DropdownMenuContent align="end" className="w-[200px]">
         {user ? (
           <>
+            <DropdownMenuItem>
+              <Link href="/dashboard" className="w-full">
+                Dashboard
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>
               <LogoutLink className="w-full">Logout</LogoutLink>
             </DropdownMenuItem>

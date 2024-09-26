@@ -22,7 +22,7 @@ export async function getUserSeries() {
   return seriesData;
 }
 
-export async function addSerie(name: string, backdrop_path: string) {
+export async function addSerie(name: string, poster_path: string) {
   const { isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
@@ -40,7 +40,7 @@ export async function addSerie(name: string, backdrop_path: string) {
   await prisma.serie.create({
     data: {
       name,
-      backdrop_path,
+      backdrop_path: poster_path,
       saison: 1,
       episode: 1,
       userId: existingUser.id,
@@ -78,6 +78,7 @@ export async function updateSerie(id: string, saison: number, episode: number) {
       episode,
     },
   });
+  redirect("/dashboard");
 }
 
 export async function deleteSerie(id: string) {

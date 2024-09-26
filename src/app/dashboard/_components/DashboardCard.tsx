@@ -25,7 +25,7 @@ interface DashboardPageCardProps {
 export default function DashboardCard({
   name,
   backdrop_path,
-  saison: iniatialSeason,
+  saison: initialSeason,
   episode: initialEpisode,
   id,
 }: DashboardPageCardProps) {
@@ -37,18 +37,18 @@ export default function DashboardCard({
     await updateSerie(id, saison, episode);
   };
 
-  const [season, setSeasons] = useState(iniatialSeason);
+  const [season, setSeasons] = useState(initialSeason);
   const [episode, setEpisodes] = useState(initialEpisode);
 
   const incrementSeason = () => setSeasons((prev) => prev + 1);
   const incrementEpisode = () => setEpisodes((prev) => prev + 1);
 
   return (
-    <Card className="w-[300px] overflow-hidden">
+    <Card className="w-[260px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <CardHeader className="relative p-0">
         <Image
           alt={name}
-          className="w-full h-[150px] object-cover"
+          className="w-full h-[150px]"
           height="150"
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
@@ -70,18 +70,21 @@ export default function DashboardCard({
         </p>
       </CardContent>
       <CardFooter className="flex justify-center gap-2">
-        <Button onClick={incrementSeason} variant="outline">
-          Next Season
-        </Button>
-        <Button onClick={incrementEpisode}>Next Episode</Button>
-        {season !== iniatialSeason || episode !== initialEpisode ? (
+        {season !== initialSeason || episode !== initialEpisode ? (
           <Button
             onClick={() => handleUpdateSerie(id, season, episode)}
             variant="outline"
           >
-            Update
+            Confirm
           </Button>
-        ) : null}
+        ) : (
+          <>
+            <Button onClick={incrementSeason} variant="outline">
+              Next Season
+            </Button>
+            <Button onClick={incrementEpisode}>Next Episode</Button>
+          </>
+        )}
       </CardFooter>
     </Card>
   );

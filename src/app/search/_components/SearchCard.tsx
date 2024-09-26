@@ -22,11 +22,11 @@ export default function SearchPageCard({
   };
 
   return (
-    <Card className="w-[250px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
+    <Card className="w-[260px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <div className="relative">
         <Image
           alt={name}
-          className="w-full h-[150px] object-cover"
+          className="w-full h-[150px]"
           height="150"
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
