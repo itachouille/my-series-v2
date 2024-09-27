@@ -5,6 +5,8 @@ import DashboardCard from "./DashboardCard";
 import SwitchTab from "@/components/SwitchTab";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
+import { useAppContext } from "@/lib/context";
+import { getUserMovies } from "@/data-access/movie";
 
 export default async function BoardList() {
   const { isAuthenticated } = getKindeServerSession();
@@ -12,7 +14,10 @@ export default async function BoardList() {
     redirect("/api/auth/login");
   }
 
-  const data = await getUserSeries();
+  const { media } = useAppContext();
+
+  const data =
+    media === "series" ? await getUserSeries() : await getUserMovies();
 
   return (
     <>

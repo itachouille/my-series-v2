@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tv, Film } from "lucide-react";
+import { useAppContext } from "@/lib/context";
 
 export default function MediaSwitchTab() {
-  const [activeTab, setActiveTab] = useState("tv");
+  const { media, setMedia } = useAppContext();
 
   return (
     <div className="w-full max-w-md ">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Tabs value={media} onValueChange={setMedia} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger
-            value="tv"
+            value="series"
             className="flex items-center justify-center space-x-2"
           >
             <Tv className="w-4 h-4" />
