@@ -1,4 +1,4 @@
-import "server-only";
+"use server";
 
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";

@@ -1,20 +1,24 @@
 import { getUserSeries } from "@/data-access/serie";
+import { getUserMovies } from "@/data-access/movie";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardCard from "./DashboardCard";
 import SwitchTab from "@/components/SwitchTab";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
-import { useAppContext } from "@/lib/context";
-import { getUserMovies } from "@/data-access/movie";
 
-export default async function BoardList() {
+export default async function BoardList({
+  searchParams,
+}: {
+  searchParams: { media?: string };
+}) {
   const { isAuthenticated } = getKindeServerSession();
+
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
   }
 
-  const { media } = useAppContext();
+  const media = searchParams?.media || "series";
 
   const data =
     media === "series" ? await getUserSeries() : await getUserMovies();
@@ -32,18 +36,16 @@ export default async function BoardList() {
           </div>
         </Link>
 
-        {data?.map((serie) => {
-          return (
-            <DashboardCard
-              key={serie.id}
-              name={serie.name}
-              backdrop_path={serie.backdrop_path}
-              saison={serie.saison}
-              episode={serie.episode}
-              id={serie.id}
-            />
-          );
-        })}
+        {data?.map((item) => (
+          <DashboardCard
+            key={item.id}
+            name={item.name}
+            backdrop_path={item.backdrop_path}
+            saison={item.saison}
+            episode={item.episode}
+            id={item.id}
+          />
+        ))}
       </div>
     </>
   );
