@@ -2,7 +2,12 @@
 
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import Image from "next/image";
 import { addSerie } from "@/data-access/serie";
 
@@ -22,20 +27,20 @@ export default function SearchPageCard({
   };
 
   return (
-    <Card className="w-[260px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
-      <div className="relative">
+    <Card className="w-[260px] hover:shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out">
+      <CardHeader className="relative p-0">
         <Image
           alt={name}
-          className="w-full h-[150px]"
+          width="100"
           height="150"
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
-            aspectRatio: "100/150",
-            objectFit: "cover",
+            width: "auto",
+            height: "auto",
+            maxHeight: "145px",
           }}
-          width="100"
         />
-      </div>
+      </CardHeader>
       <CardContent className="p-4">
         <h3 className="text-lg font-bold truncate">{name}</h3>
         <div className="flex justify-between items-center mt-2">

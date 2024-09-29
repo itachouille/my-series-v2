@@ -30,25 +30,28 @@ export default function DashboardCard({
     await updateSerie(id, saison, episode);
   };
 
-  const [season, setSeasons] = useState(initialSeason);
-  const [episode, setEpisodes] = useState(initialEpisode);
+  const [season, setSeason] = useState<number | undefined>(initialSeason);
+  const [episode, setEpisode] = useState<number | undefined>(initialEpisode);
 
-  const incrementSeason = () => setSeasons((prev) => prev + 1);
-  const incrementEpisode = () => setEpisodes((prev) => prev + 1);
+  const incrementSeason = () =>
+    setSeason((prev) => (prev !== undefined ? prev + 1 : 1));
+  const incrementEpisode = () =>
+    setEpisode((prev) => (prev !== undefined ? prev + 1 : 1));
 
   return (
     <Card className="w-[260px] hover:shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out">
       <CardHeader className="relative p-0">
         <Image
           alt={name}
-          className="w-full h-[150px]"
+          className="w-full"
+          width="100"
           height="150"
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           style={{
-            aspectRatio: "100/150",
-            objectFit: "cover",
+            width: "auto",
+            height: "auto",
+            maxHeight: "145px",
           }}
-          width="100"
         />
         <Actions id={id} name={name} side="right">
           <button className="absolute top-1 right-1 px-3 py-2 outline-none">
@@ -58,14 +61,18 @@ export default function DashboardCard({
       </CardHeader>
       <CardContent className="p-4">
         <CardTitle className="text-xl mb-2 truncate">{name}</CardTitle>
-        <p className="text-sm text-gray-600">
-          Season: {season} | Episode: {episode}
-        </p>
+        {initialSeason !== undefined && initialEpisode !== undefined && (
+          <p className="text-sm text-gray-600">
+            Season: {season} | Episode: {episode}
+          </p>
+        )}
       </CardContent>
       <CardFooter className="flex justify-center gap-2">
-        {season !== initialSeason || episode !== initialEpisode ? (
+        {initialSeason === undefined ||
+        initialEpisode === undefined ? null : season !== initialSeason ||
+          episode !== initialEpisode ? (
           <Button
-            onClick={() => handleUpdateSerie(id, season, episode)}
+            onClick={() => handleUpdateSerie(id, season!, episode!)}
             variant="outline"
           >
             Confirm

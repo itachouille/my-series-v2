@@ -120,7 +120,7 @@ export default function Homepage() {
               {[
                 {
                   quote:
-                    "WatchTracker has completely changed how I manage my TV and movie watching. It's so easy to use!",
+                    "My Series has completely changed how I manage my TV and movie watching. It's so easy to use!",
                   author: "Sarah M.",
                 },
                 {

@@ -29,7 +29,7 @@ export type SeriesItemProps = {
 export type DashboardPageCardProps = {
   name: string;
   backdrop_path: string;
-  saison: number;
-  episode: number;
+  saison?: number;
+  episode?: number;
   id: string;
 };

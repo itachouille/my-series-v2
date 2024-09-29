@@ -1,20 +1,32 @@
-import { getUserSeries } from "@/data-access/serie";
-//import { getUserMovies } from "@/data-access/movie";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
+"use client";
+
 import DashboardCard from "./DashboardCard";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
 import { DashboardPageCardProps } from "@/types";
+import { getUserSeries } from "@/data-access/serie";
+import { useEffect, useState } from "react";
+import { useMediaStore } from "@/store/media-store";
+import { getUserMovies } from "@/data-access/movie";
 
-export default async function BoardList() {
-  const { isAuthenticated } = getKindeServerSession();
+export default function BoardList() {
+  const [data, setData] = useState<DashboardPageCardProps[] | undefined>();
 
-  if (!(await isAuthenticated())) {
-    redirect("/api/auth/login");
-  }
+  const { media } = useMediaStore();
 
-  const data = await getUserSeries();
+  useEffect(() => {
+    async function fetchData() {
+      if (media === "series") {
+        let res = await getUserSeries();
+        setData(res);
+      } else if (media === "movies") {
+        let res = await getUserMovies();
+        setData(res);
+      }
+    }
+
+    fetchData();
+  }, [media]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-6 pb-10">

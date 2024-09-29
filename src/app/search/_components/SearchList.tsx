@@ -9,11 +9,6 @@ interface SearchListProps {
 }
 
 export default async function SearchList({ data }: SearchListProps) {
-  const { isAuthenticated } = getKindeServerSession();
-  if (!(await isAuthenticated())) {
-    redirect("/api/auth/login");
-  }
-
   return (
     <>
       <div className="pt-2">
