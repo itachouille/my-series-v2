@@ -58,7 +58,7 @@ export default function ConfirmModal({
               `Are you sure you want to delete this ${itemName}? This action cannot be undone.`}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="mt-4 rounded-md bg-muted p-4 text-sm text-muted-foreground">
+        <div className="mt-4 bg-muted rounded-md p-4 text-sm text-muted-foreground">
           <p>To confirm, please click the "Delete" button below.</p>
           <p className="mt-2">
             This will permanently remove the {itemName} from our systems.

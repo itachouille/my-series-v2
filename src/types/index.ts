@@ -25,3 +25,11 @@ export type SeriesItemProps = {
   backdrop_path: string;
   year: number;
 };
+
+export type DashboardPageCardProps = {
+  name: string;
+  backdrop_path: string;
+  saison: number;
+  episode: number;
+  id: string;
+};

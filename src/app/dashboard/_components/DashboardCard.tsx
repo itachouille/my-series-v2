@@ -13,14 +13,7 @@ import Image from "next/image";
 import { MoreVertical } from "lucide-react";
 import Actions from "./Actions";
 import { updateSerie } from "@/data-access/serie";
-
-interface DashboardPageCardProps {
-  name: string;
-  backdrop_path: string;
-  saison: number;
-  episode: number;
-  id: string;
-}
+import { DashboardPageCardProps } from "@/types";
 
 export default function DashboardCard({
   name,
@@ -44,7 +37,7 @@ export default function DashboardCard({
   const incrementEpisode = () => setEpisodes((prev) => prev + 1);
 
   return (
-    <Card className="w-[260px] overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
+    <Card className="w-[260px] hover:shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out">
       <CardHeader className="relative p-0">
         <Image
           alt={name}
