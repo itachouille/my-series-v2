@@ -1,6 +1,4 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import SearchPageCard from "./SearchCard";
-import { redirect } from "next/navigation";
 import { SeriesItemProps } from "@/types";
 import Searchbar from "./Searchbar";
 
@@ -10,7 +8,7 @@ interface SearchListProps {
 
 export default async function SearchList({ data }: SearchListProps) {
   return (
-    <>
+    <div className="flex flex-col gap-2 items-center">
       <div className="pt-2">
         <Searchbar />
       </div>
@@ -24,6 +22,6 @@ export default async function SearchList({ data }: SearchListProps) {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

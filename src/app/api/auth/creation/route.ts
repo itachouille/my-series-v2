@@ -28,7 +28,7 @@ export async function GET() {
       });
     }
 
-    return NextResponse.redirect("http://localhost:3000/dashboard");
+    return NextResponse.redirect("http://localhost:3000/dashboard/series");
   } catch (error) {
     console.error("Error in GET handler:", error);
     return NextResponse.json(

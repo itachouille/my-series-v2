@@ -1,6 +1,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import BoardList from "./_components/BoardList";
 import { redirect } from "next/navigation";
+import BoardList from "./_components/BoardList";
+import SwitchTab from "@/components/SwitchTab";
 
 export default async function DashboardPage() {
   const { isAuthenticated } = getKindeServerSession();
@@ -9,8 +10,9 @@ export default async function DashboardPage() {
   }
 
   return (
-    <>
+    <main className="flex flex-col items-center px-6">
+      <SwitchTab />
       <BoardList />
-    </>
+    </main>
   );
 }

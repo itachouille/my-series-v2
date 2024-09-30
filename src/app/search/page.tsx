@@ -1,8 +1,9 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import SearchList from "./_components/SearchList";
 import { SearchParamProps } from "@/types";
 import { fetchSeries } from "./actions";
+import SearchList from "./_components/SearchList";
+import SwitchTab from "@/components/SwitchTab";
 
 export default async function SearchPage({ searchParams }: SearchParamProps) {
   const { isAuthenticated } = getKindeServerSession();
@@ -11,14 +12,14 @@ export default async function SearchPage({ searchParams }: SearchParamProps) {
   }
 
   const searchText = (searchParams?.query as string) || "";
-
   const data = await fetchSeries({
     query: searchText,
   });
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <main className="flex flex-col items-center px-6">
+      <SwitchTab />
       <SearchList data={data.results} />
-    </div>
+    </main>
   );
 }
