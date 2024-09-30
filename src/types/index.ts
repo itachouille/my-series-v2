@@ -21,8 +21,8 @@ export type FetchSeriesProps = {
 export type SeriesItemProps = {
   id: string;
   name: string;
+  title: string;
   backdrop_path: string;
-  year: number;
 };
 
 export type DashboardPageCardProps = {

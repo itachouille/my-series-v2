@@ -21,6 +21,31 @@ export async function getUserMovies() {
   return moviesData;
 }
 
+export async function addMovie(name: string, poster_path: string) {
+  const { isAuthenticated } = getKindeServerSession();
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  const existingUser = await prisma.user.findUnique({
+    where: { id: user.id },
+  });
+
+  if (!existingUser) return;
+
+  await prisma.movie.create({
+    data: {
+      name,
+      backdrop_path: poster_path,
+      userId: existingUser.id,
+    },
+  });
+  redirect("/dashboard");
+}
+
 export async function getMovieById(id: string) {
   const { isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
@@ -46,4 +71,5 @@ export async function deleteMovie(id: string) {
       id,
     },
   });
+  redirect("/dashboard");
 }

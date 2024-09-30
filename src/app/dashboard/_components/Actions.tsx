@@ -10,6 +10,8 @@ import CorfirmModal from "./ConfirmModal";
 import { Button } from "@/components/ui/button";
 import { deleteSerie } from "@/data-access/serie";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
+import { useToggleContext } from "@/context";
+import { deleteMovie } from "@/data-access/movie";
 //import { toast } from "@/hooks/use-toast";
 
 interface ActionsProps {
@@ -20,8 +22,14 @@ interface ActionsProps {
 }
 
 export default function Actions({ children, id, name, side }: ActionsProps) {
+  const { media } = useToggleContext();
+
   const handleDeleteSerie = async (id: string) => {
-    await deleteSerie(id);
+    if (media === "series") {
+      await deleteSerie(id);
+    } else {
+      await deleteMovie(id);
+    }
   };
 
   return (
@@ -34,7 +42,7 @@ export default function Actions({ children, id, name, side }: ActionsProps) {
         sideOffset={5}
       >
         <CorfirmModal
-          header="Delete board?"
+          header="Delete ?"
           description={`This will delete ${name}.`}
           disabled={false}
           onConfirm={() => handleDeleteSerie(id)}

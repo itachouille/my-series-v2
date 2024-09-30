@@ -1,19 +1,21 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToggleContext } from "@/context";
 import { Tv, Film } from "lucide-react";
-import { useState } from "react";
 
 export default function SwitchTab() {
-  const [media, setMedia] = useState("series");
-
-  const handleTabChange = (media: string) => {
-    setMedia(media);
-  };
+  const { media, setMedia } = useToggleContext();
 
   return (
     <div className="w-full max-w-md">
-      <Tabs value={media} onValueChange={handleTabChange} className="w-full">
+      <Tabs
+        value={media}
+        onValueChange={(value) => {
+          setMedia(value);
+        }}
+        className="w-full"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger
             value="series"

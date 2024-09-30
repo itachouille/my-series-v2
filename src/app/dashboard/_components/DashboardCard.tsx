@@ -67,7 +67,7 @@ export default function DashboardCard({
           </p>
         )}
       </CardContent>
-      <CardFooter className="flex justify-center gap-2">
+      <CardFooter className="flex justify-center gap-3">
         {initialSeason === undefined ||
         initialEpisode === undefined ? null : season !== initialSeason ||
           episode !== initialEpisode ? (
@@ -79,10 +79,12 @@ export default function DashboardCard({
           </Button>
         ) : (
           <>
-            <Button onClick={incrementSeason} variant="outline">
+            <Button className="p-2" onClick={incrementSeason} variant="outline">
               Next Season
             </Button>
-            <Button onClick={incrementEpisode}>Next Episode</Button>
+            <Button className="p-2" onClick={incrementEpisode}>
+              Next Episode
+            </Button>
           </>
         )}
       </CardFooter>

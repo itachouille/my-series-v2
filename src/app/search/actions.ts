@@ -20,8 +20,36 @@ export async function fetchSeries({ query }: FetchSeriesProps) {
       options
     );
 
-    return res.json();
+    if (!res.ok) {
+      console.error(`Error fetching series: ${res.status} ${res.statusText}`);
+      throw new Error("Failed to fetch series");
+    }
+
+    const data = await res.json();
+
+    return data.results || [];
   } catch (error) {
     handleError(error);
+    return [];
+  }
+}
+
+export async function fetchMovies({ query }: FetchSeriesProps) {
+  try {
+    const res = await fetch(
+      `${baseUrl}/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+      options
+    );
+
+    if (!res.ok) {
+      console.error(`Error fetching movies: ${res.status} ${res.statusText}`);
+      throw new Error("Failed to fetch movies");
+    }
+
+    const data = await res.json();
+    return data.results || [];
+  } catch (error) {
+    handleError(error);
+    return [];
   }
 }

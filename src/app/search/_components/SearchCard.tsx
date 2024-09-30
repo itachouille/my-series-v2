@@ -10,20 +10,26 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { addSerie } from "@/data-access/serie";
+import { useToggleContext } from "@/context";
+import { addMovie } from "@/data-access/movie";
 
 interface SearchPageCardProps {
   name: string;
-  year: number;
   backdrop_path: string;
 }
 
 export default function SearchPageCard({
   name,
   backdrop_path,
-  year,
 }: SearchPageCardProps) {
+  const { media } = useToggleContext();
+
   const handleAddSerie = async (name: string, backdrop_path: string) => {
     addSerie(name, backdrop_path);
+  };
+
+  const handleAddMovie = async (name: string, backdrop_path: string) => {
+    addMovie(name, backdrop_path);
   };
 
   return (
@@ -43,18 +49,25 @@ export default function SearchPageCard({
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="text-lg font-bold truncate">{name}</h3>
-        <div className="flex justify-between items-center mt-2">
-          <span className="text-sm text-gray-500">{year}</span>
-        </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button
-          className="w-full"
-          onClick={() => handleAddSerie(name, backdrop_path)}
-        >
-          <Plus className="mr-2 size-4" />
-          Add to Collection
-        </Button>
+        {media === "series" ? (
+          <Button
+            className="w-full"
+            onClick={() => handleAddSerie(name, backdrop_path)}
+          >
+            <Plus className="mr-2 size-4" />
+            Add to Collection
+          </Button>
+        ) : (
+          <Button
+            className="w-full"
+            onClick={() => handleAddMovie(name, backdrop_path)}
+          >
+            <Plus className="mr-2 size-4" />
+            Add to Collection
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

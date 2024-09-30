@@ -1,16 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
-const Search = ({
-  placeholder = "Search title...",
-}: {
-  placeholder?: string;
-}) => {
+const Searchbar = () => {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,11 +35,12 @@ const Search = ({
   }, [query, searchParams, router]);
 
   return (
-    <div className="flex items-center rounded-xl px-2 bg-gray-100 ">
-      <SearchIcon className="" />
+    <div className="flex items-center rounded-xl px-2 bg-gray-100 mt-2 w-full max-w-xl">
+      <SearchIcon className="size-4" />
       <Input
         type="text"
-        placeholder={placeholder}
+        placeholder="Search for movies or series..."
+        value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
       />
@@ -51,4 +48,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default Searchbar;

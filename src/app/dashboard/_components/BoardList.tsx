@@ -1,13 +1,14 @@
-import DashboardCard from "./DashboardCard";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
-import { DashboardPageCardProps } from "@/types";
 import { getUserSeries } from "@/data-access/serie";
 import { getUserMovies } from "@/data-access/movie";
+import BoardListClient from "./BoardListClient";
 
 export default async function BoardList() {
-  const boardMedia = "series";
-  let data = await getUserSeries();
+  const [series, movies] = await Promise.all([
+    getUserSeries(),
+    getUserMovies(),
+  ]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-6 pb-10">
@@ -17,17 +18,7 @@ export default async function BoardList() {
           Add
         </div>
       </Link>
-
-      {data?.map((item: DashboardPageCardProps) => (
-        <DashboardCard
-          key={item.id}
-          name={item.name}
-          backdrop_path={item.backdrop_path}
-          saison={item.saison}
-          episode={item.episode}
-          id={item.id}
-        />
-      ))}
+      <BoardListClient series={series} movies={movies} />
     </div>
   );
 }
