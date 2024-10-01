@@ -1,11 +1,12 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MenuIcon } from "lucide-react";
-import Image from "next/image";
 import avatarPlaceholder from "@/assets/avatar-placeholder.png";
 import {
   LoginLink,
@@ -13,7 +14,10 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { CreditCard, LogOut, Settings, User } from "lucide-react";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
@@ -21,28 +25,50 @@ export default async function UserNav() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="rounded-full border px-2 py-2 flex items-center gap-x-3">
-          <MenuIcon className="size-6 lg:size-5" />
-          <Image
-            src={user?.picture || avatarPlaceholder}
-            alt="User avatar"
-            width={38}
-            height={38}
-            className="rounded-full"
-          />
-        </div>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="relative size-10 rounded-full">
+          <Avatar className="size-10">
+            <AvatarImage
+              src={user?.picture || avatarPlaceholder}
+              alt="User avatar"
+            />
+            <AvatarFallback>You</AvatarFallback>
+          </Avatar>
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[200px]">
+      <DropdownMenuContent className="w-56" align="end" forceMount>
         {user ? (
           <>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  {user.given_name || "user"}
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {user.email}
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <User className="mr-2 size-5" />
+                <span>Profil</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <CreditCard className="mr-2 size-5" />
+                <span>Facturation</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Settings className="mr-2 size-5" />
+                <span>Paramètres</span>
+              </DropdownMenuItem>
+              <ThemeToggle />
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href="/dashboard" className="w-full">
-                Dashboard
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LogoutLink className="w-full">Logout</LogoutLink>
+              <LogOut className="mr-2 size-5" />
+              <LogoutLink className="w-full">Se déconnecter</LogoutLink>
             </DropdownMenuItem>
           </>
         ) : (

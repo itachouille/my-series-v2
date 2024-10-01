@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import React from "react";
-import { ToggleProvider } from "@/context";
+import { ThemeProvider, ToggleProvider } from "@/context";
+import { Gruppo } from "next/font/google";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const gruppo = Gruppo({
+  subsets: ["latin"],
+  variable: "--gruppo-font",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -29,14 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ToggleProvider>
-          <Navbar />
-          {children}
-          <Toaster />
-        </ToggleProvider>
+      <body className={`${gruppo.variable} font-sans`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ToggleProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </ToggleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

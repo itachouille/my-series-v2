@@ -8,7 +8,7 @@ export default function SwitchTab() {
   const { media, setMedia } = useToggleContext();
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md pt-3">
       <Tabs
         value={media}
         onValueChange={(value) => {
