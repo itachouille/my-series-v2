@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface ConfirmModalProps {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export default function ConfirmModal({
   itemName = "item",
 }: ConfirmModalProps) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const { toast } = useToast();
 
   const handleConfirm = async () => {
     setIsDeleting(true);
@@ -39,8 +41,16 @@ export default function ConfirmModal({
       await onConfirm();
     } catch (error) {
       console.error("Error during deletion:", error);
+      toast({
+        description: "Error during deletion",
+        variant: "destructive",
+      });
     } finally {
       setIsDeleting(false);
+      toast({
+        description: "Deleted",
+        variant: "default",
+      });
     }
   };
 
@@ -59,7 +69,7 @@ export default function ConfirmModal({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="mt-4 bg-muted rounded-md p-4 text-sm text-muted-foreground">
-          <p>To confirm, please click the "Delete" button below.</p>
+          <p>To confirm, please click the &quot;Delete&quot; button below.</p>
           <p className="mt-2">
             This will permanently remove the {itemName} from our systems.
           </p>

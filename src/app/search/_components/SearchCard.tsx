@@ -12,6 +12,7 @@ import Image from "next/image";
 import { addSerie } from "@/data-access/serie";
 import { useToggleContext } from "@/context";
 import { addMovie } from "@/data-access/movie";
+import { useToast } from "@/hooks/use-toast";
 
 interface SearchPageCardProps {
   name: string;
@@ -23,13 +24,22 @@ export default function SearchPageCard({
   backdrop_path,
 }: SearchPageCardProps) {
   const { media } = useToggleContext();
+  const { toast } = useToast();
 
   const handleAddSerie = async (name: string, backdrop_path: string) => {
     addSerie(name, backdrop_path);
+    toast({
+      description: "Tv show add",
+      variant: "default",
+    });
   };
 
   const handleAddMovie = async (name: string, backdrop_path: string) => {
     addMovie(name, backdrop_path);
+    toast({
+      description: "Movie add",
+      variant: "default",
+    });
   };
 
   return (

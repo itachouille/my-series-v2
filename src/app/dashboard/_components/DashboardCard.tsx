@@ -14,6 +14,7 @@ import { MoreVertical, Undo2 } from "lucide-react";
 import Actions from "./Actions";
 import { updateSerie } from "@/data-access/serie";
 import { DashboardPageCardProps } from "@/types";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DashboardCard({
   name,
@@ -22,26 +23,34 @@ export default function DashboardCard({
   episode: initialEpisode,
   id,
 }: DashboardPageCardProps) {
+  const initSeason = initialSeason;
+  const initEpisode = initialEpisode;
+  const { toast } = useToast();
+
   const handleUpdateSerie = async (
     id: string,
     saison: number,
     episode: number
   ) => {
     await updateSerie(id, saison, episode);
+    toast({
+      description: "Updated",
+      variant: "default",
+    });
   };
-
-  const initSeason = initialSeason;
-  const initEpisode = initialEpisode;
 
   const [newSeason, setNewSeason] = useState<number | undefined>(initialSeason);
   const [newEpisode, setNewEpisode] = useState<number | undefined>(
     initialEpisode
   );
 
-  const incrementSeason = () =>
+  function incrementSeason() {
     setNewSeason((prev) => (prev !== undefined ? prev + 1 : 1));
-  const incrementEpisode = () =>
+  }
+
+  function incrementEpisode() {
     setNewEpisode((prev) => (prev !== undefined ? prev + 1 : 1));
+  }
 
   function handleUndo() {
     if (newSeason !== initSeason) {

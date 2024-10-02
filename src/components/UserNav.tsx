@@ -17,7 +17,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { CreditCard, Home, LogOut, Settings, User } from "lucide-react";
+import { Home, LogOut } from "lucide-react";
 import Link from "next/link";
 
 export default async function UserNav() {

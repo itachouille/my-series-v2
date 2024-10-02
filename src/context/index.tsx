@@ -18,7 +18,7 @@ interface ToggleContextType {
 const ToggleContext = createContext<ToggleContextType | undefined>(undefined);
 
 export function ToggleProvider({ children }: { children: React.ReactNode }) {
-  let [media, setMedia] = useState<string>("series");
+  const [media, setMedia] = useState<string>("series");
 
   return (
     <ToggleContext.Provider value={{ media, setMedia }}>
