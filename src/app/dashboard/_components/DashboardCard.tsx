@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Undo2 } from "lucide-react";
 import Actions from "./Actions";
 import { updateSerie } from "@/data-access/serie";
 import { DashboardPageCardProps } from "@/types";
@@ -30,13 +30,26 @@ export default function DashboardCard({
     await updateSerie(id, saison, episode);
   };
 
-  const [season, setSeason] = useState<number | undefined>(initialSeason);
-  const [episode, setEpisode] = useState<number | undefined>(initialEpisode);
+  const initSeason = initialSeason;
+  const initEpisode = initialEpisode;
+
+  const [newSeason, setNewSeason] = useState<number | undefined>(initialSeason);
+  const [newEpisode, setNewEpisode] = useState<number | undefined>(
+    initialEpisode
+  );
 
   const incrementSeason = () =>
-    setSeason((prev) => (prev !== undefined ? prev + 1 : 1));
+    setNewSeason((prev) => (prev !== undefined ? prev + 1 : 1));
   const incrementEpisode = () =>
-    setEpisode((prev) => (prev !== undefined ? prev + 1 : 1));
+    setNewEpisode((prev) => (prev !== undefined ? prev + 1 : 1));
+
+  function handleUndo() {
+    if (newSeason !== initSeason) {
+      setNewSeason((prev) => (prev !== undefined ? prev - 1 : 1));
+    } else if (newEpisode !== initEpisode) {
+      setNewEpisode((prev) => (prev !== undefined ? prev - 1 : 1));
+    }
+  }
 
   return (
     <Card className="w-[260px] hover:shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out">
@@ -63,20 +76,25 @@ export default function DashboardCard({
         <CardTitle className="text-xl mb-2 truncate">{name}</CardTitle>
         {initialSeason !== undefined && initialEpisode !== undefined && (
           <p className="text-sm text-gray-600">
-            Season: {season} | Episode: {episode}
+            Season: {newSeason} | Episode: {newEpisode}
           </p>
         )}
       </CardContent>
       <CardFooter className="flex justify-center gap-3">
         {initialSeason === undefined ||
-        initialEpisode === undefined ? null : season !== initialSeason ||
-          episode !== initialEpisode ? (
-          <Button
-            onClick={() => handleUpdateSerie(id, season!, episode!)}
-            variant="outline"
-          >
-            Confirm
-          </Button>
+        initialEpisode === undefined ? null : newSeason !== initialSeason ||
+          newEpisode !== initialEpisode ? (
+          <>
+            <Button onClick={handleUndo}>
+              <Undo2 />
+            </Button>
+            <Button
+              onClick={() => handleUpdateSerie(id, newSeason!, newEpisode!)}
+              variant="outline"
+            >
+              Confirm
+            </Button>
+          </>
         ) : (
           <>
             <Button className="p-2" onClick={incrementSeason} variant="outline">

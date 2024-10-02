@@ -17,10 +17,6 @@ export default function SearchListClient({
 
   const dataToDisplay = media === "series" ? series : movies;
 
-  if (!Array.isArray(dataToDisplay) || dataToDisplay.length === 0) {
-    return <p>No results found.</p>;
-  }
-
   return (
     <>
       {dataToDisplay.map((item: SeriesItemProps) => (

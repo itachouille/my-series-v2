@@ -13,7 +13,7 @@ export default async function BoardList() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-6 pb-10">
       <Link href="/search">
-        <div className="border-2 shadow-sm text-primary flex justify-center items-center h-full bg-background rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
+        <div className="md:h-[295px] w-[260px] border-2 shadow-sm text-primary flex justify-center items-center bg-background rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out">
           <CirclePlus className="size-10 p-1" />
           Add
         </div>

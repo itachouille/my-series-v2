@@ -12,9 +12,9 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       {theme === "dark" ? (
-        <Sun className="mr-2 h-4 w-4" />
+        <Sun className="mr-2 size-4" />
       ) : (
-        <Moon className="mr-2 h-4 w-4" />
+        <Moon className="mr-2 size-4" />
       )}
       <span>{theme === "dark" ? "Mode clair" : "Mode sombre"}</span>
     </DropdownMenuItem>

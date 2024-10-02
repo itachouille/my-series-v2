@@ -17,7 +17,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { CreditCard, LogOut, Settings, User } from "lucide-react";
+import { CreditCard, Home, LogOut, Settings, User } from "lucide-react";
+import Link from "next/link";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
@@ -51,24 +52,18 @@ export default async function UserNav() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User className="mr-2 size-5" />
-                <span>Profil</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard className="mr-2 size-5" />
-                <span>Facturation</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 size-5" />
-                <span>Paramètres</span>
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard" className="flex">
+                  <Home className="mr-2 size-4" />
+                  <span>Home</span>
+                </Link>
               </DropdownMenuItem>
               <ThemeToggle />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut className="mr-2 size-5" />
-              <LogoutLink className="w-full">Se déconnecter</LogoutLink>
+              <LogoutLink>Se déconnecter</LogoutLink>
             </DropdownMenuItem>
           </>
         ) : (
