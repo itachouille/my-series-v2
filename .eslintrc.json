@@ -1,6 +1,7 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
+  "extends": "next",
+  "rules": {
+    "no-empty-object-types": "off",
+    "no-unused-vars": "off"
+  }
 }

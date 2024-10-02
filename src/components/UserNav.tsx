@@ -19,6 +19,7 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Home, LogOut } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function UserNav() {
   const { getUser } = getKindeServerSession();
@@ -29,9 +30,12 @@ export default async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative size-10 rounded-full">
           <Avatar className="size-10">
-            <AvatarImage
+            <Image
+              className="aspect-square h-full w-full"
               src={user?.picture || avatarPlaceholder}
               alt="User avatar"
+              width={30}
+              height={30}
             />
             <AvatarFallback>You</AvatarFallback>
           </Avatar>
