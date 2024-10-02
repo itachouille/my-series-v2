@@ -28,7 +28,7 @@ export async function GET() {
       });
     }
 
-    return NextResponse.redirect("http://localhost:3000/dashboard");
+    return NextResponse.redirect("http://my-series-v2.vercel.app/dashboard");
   } catch (error) {
     console.error("Error in GET handler:", error);
     return NextResponse.json(
